@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172a3a">
+  <title>ContractFlow | Quản lý hợp đồng</title>
+  <link rel="stylesheet" href="/styles.css?v=20261022-auth">
+  <link rel="stylesheet" href="/workspace.css?v=20261022-nav-icons">
+</head>
+<body>
+  <section class="login-screen" id="login-screen">
+    <div class="login-art">
+      <a class="brand brand-light" href="#login" aria-label="ContractFlow"><span class="brand-icon">C</span><span><b>ContractFlow</b><small>CONTRACT WORKSPACE</small></span></a>
+      <div class="login-art-copy"><p class="eyebrow">CONTRACT MANAGEMENT</p><h1>Rõ ràng trong từng thỏa thuận.</h1><p>Một nơi để theo dõi hợp đồng, đối tác và các mốc quan trọng.</p></div>
+      <div class="art-stamp"><span>CF</span><small>WORKSPACE<br>EST. 2026</small></div>
+    </div>
+    <div class="login-panel">
+      <form class="login-form" id="login-form">
+        <p class="eyebrow">CHÀO MỪNG TRỞ LẠI</p><h2>Đăng nhập</h2><p class="muted">Truy cập không gian quản lý của bạn.</p>
+        <label for="login-username">Tên đăng nhập</label><input id="login-username" name="username" autocomplete="username" required>
+        <label for="login-password">Mật khẩu</label><input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        <p class="error" id="login-error" role="alert"></p>
+        <button class="primary login-submit" type="submit">Đăng nhập <span aria-hidden="true">→</span></button>
+      </form>
+      <small class="login-foot">ContractFlow · Không gian làm việc an toàn</small>
+    </div>
+  </section>
+
+  <div class="workspace" id="workspace" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-icon">C</span><span><b>ContractFlow</b><small>WORKSPACE</small></span></a>
+      <nav aria-label="Điều hướng chính">
+        <a class="nav-link active" href="#dashboard" data-view="dashboard"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="4" rx="1"/><rect x="13.5" y="9.5" width="7" height="11" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/></svg></span>Tổng quan</a>
+        <a class="nav-link" href="#contracts" data-view="contracts"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v5h4M9 13h6M9 16.5h6"/></svg></span>Hợp đồng</a>
+        <a class="nav-link" href="#parties" data-view="parties"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.5A4.5 4.5 0 0 1 8 13h2a4.5 4.5 0 0 1 4.5 4.5V19zM16 5.5a3 3 0 0 1 0 5.8M17 13h1a3.5 3.5 0 0 1 3.5 3.5V19H17"/></svg></span>Đối tác</a>
+      </nav>
+      <div class="side-bottom"><span class="dot"></span> Hệ thống hoạt động</div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div class="mobile-brand"><span class="brand-icon">C</span><b>ContractFlow</b></div><div class="topbar-user"><span class="user-avatar" id="user-avatar">A</span><span id="current-user">admin</span><button class="logout-button" id="logout-button" type="button" title="Đăng xuất" aria-label="Đăng xuất">↪</button></div></header>
+      <div class="page-heading"><div><p class="eyebrow" id="page-eyebrow">WORKSPACE / TỔNG QUAN</p><h1 id="page-title">Tổng quan</h1><p class="muted" id="page-description">Toàn cảnh hợp đồng và các mốc cần lưu ý.</p></div><button class="primary" id="new-contract">＋ Tạo hợp đồng</button></div>
+
+      <section class="view active" id="view-dashboard" data-page="dashboard">
+        <div class="stats" id="stats">
+          <article><span>Tổng hợp đồng</span><strong id="total">—</strong><small>Hồ sơ đang quản lý</small></article>
+          <article><span>Tổng giá trị</span><strong id="value">—</strong><small>Giá trị ghi nhận</small></article>
+          <article><span>Sắp hết hạn</span><strong id="expiring">—</strong><small>Hợp đồng hiệu lực trong 30 ngày</small></article>
+          <article><span>Đối tác</span><strong id="party-count">—</strong><small>Hồ sơ đối tác</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <section class="panel status-panel"><div class="panel-head"><div><h2>Trạng thái hợp đồng</h2><p class="muted">Phân bổ hồ sơ hiện tại</p></div><button class="ghost" id="refresh">↻ Làm mới</button></div><div class="status-list" id="status-list"></div></section>
+          <section class="panel quick-panel"><p class="eyebrow">KHÔNG GIAN LÀM VIỆC</p><h2>Đi đến chức năng</h2><a href="#contracts" data-view="contracts" class="quick-link"><span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v5h4M9 13h6M9 16.5h6"/></svg></span><span><b>Quản lý hợp đồng</b><small>Tìm kiếm, cập nhật và theo dõi hồ sơ</small></span><span class="quick-arrow">→</span></a><a href="#parties" data-view="parties" class="quick-link"><span class="quick-icon green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.5A4.5 4.5 0 0 1 8 13h2a4.5 4.5 0 0 1 4.5 4.5V19zM16 5.5a3 3 0 0 1 0 5.8M17 13h1a3.5 3.5 0 0 1 3.5 3.5V19H17"/></svg></span><span><b>Danh bạ đối tác</b><small>Khách hàng, nhà cung cấp và đối tác</small></span><span class="quick-arrow">→</span></a></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-contracts" data-page="contracts">
+        <section class="panel data-panel"><div class="panel-head"><div><h2>Danh sách hợp đồng</h2><p class="muted">Tìm kiếm, lọc trạng thái và cập nhật hồ sơ.</p></div><button class="ghost" id="refresh-contracts">↻ Làm mới</button></div><div class="filters"><input id="search" type="search" placeholder="Tìm mã, tên hợp đồng hoặc đối tác..." aria-label="Tìm hợp đồng"><select id="status-filter" aria-label="Lọc trạng thái"><option value="">Tất cả trạng thái</option><option value="draft">Bản nháp</option><option value="review">Đang duyệt</option><option value="active">Đang hiệu lực</option><option value="completed">Hoàn thành</option><option value="expired">Hết hạn</option><option value="terminated">Đã chấm dứt</option></select></div><div class="table-wrap"><table><thead><tr><th>MÃ HỢP ĐỒNG</th><th>TÊN HỢP ĐỒNG</th><th>ĐỐI TÁC</th><th>GIÁ TRỊ</th><th>NGÀY KẾT THÚC</th><th>TRẠNG THÁI</th><th></th></tr></thead><tbody id="contract-rows"><tr><td colspan="7" class="empty">Đang tải dữ liệu...</td></tr></tbody></table></div><div class="table-foot" id="table-foot"></div></section>
+      </section>
+
+      <section class="view" id="view-parties" data-page="parties">
+        <section class="panel data-panel"><div class="panel-head"><div><h2>Danh bạ đối tác</h2><p class="muted">Thông tin khách hàng, nhà cung cấp và đối tác liên quan.</p></div><button class="secondary" id="new-party">＋ Thêm đối tác</button></div><div class="table-wrap"><table><thead><tr><th>TÊN ĐỐI TÁC</th><th>PHÂN LOẠI</th><th>EMAIL</th><th>ĐIỆN THOẠI</th><th>MÃ SỐ THUẾ</th><th></th></tr></thead><tbody id="party-rows"></tbody></table></div></section>
+      </section>
+      <footer>ContractFlow · Contract management workspace <span>PostgreSQL · Nginx · Prometheus · Grafana · Loki</span></footer>
+    </main>
+  </div>
+
+  <dialog id="contract-dialog"><form id="contract-form"><div class="dialog-head"><div><p class="eyebrow">CONTRACT RECORD</p><h2 id="contract-dialog-title">Tạo hợp đồng</h2></div><button type="button" class="icon-btn" data-close="contract-dialog" aria-label="Đóng">×</button></div><input type="hidden" id="contract-id"><div class="form-grid"><label>Mã hợp đồng *<input id="contract-code" required maxlength="40" placeholder="HD-2026-004"></label><label>Tên hợp đồng *<input id="contract-title" required maxlength="220" placeholder="Tên hợp đồng"></label><label>Đối tác<select id="contract-party"><option value="">Chưa chọn</option></select></label><label>Loại hợp đồng<select id="contract-type"><option value="service">Dịch vụ</option><option value="purchase">Mua hàng</option><option value="sales">Bán hàng</option><option value="employment">Lao động</option><option value="lease">Thuê</option><option value="nda">Bảo mật (NDA)</option><option value="other">Khác</option></select></label><label>Trạng thái<select id="contract-status"><option value="draft">Bản nháp</option><option value="review">Đang duyệt</option><option value="active">Đang hiệu lực</option><option value="completed">Hoàn thành</option><option value="expired">Hết hạn</option><option value="terminated">Đã chấm dứt</option></select></label><label>Giá trị (VND)<input id="contract-value" type="number" min="0" step="1000" value="0"></label><label>Ngày bắt đầu<input id="start-date" type="date"></label><label>Ngày kết thúc<input id="end-date" type="date"></label><label>Người phụ trách<input id="owner-name" maxlength="160" placeholder="Họ tên"></label><label>Tiền tệ<select id="currency"><option>VND</option><option>USD</option><option>EUR</option></select></label><label class="full">Mô tả<textarea id="contract-description" rows="3" placeholder="Điều khoản hoặc ghi chú chính..."></textarea></label></div><p id="form-error" class="error"></p><div class="dialog-actions"><button type="button" class="ghost" data-close="contract-dialog">Hủy</button><button type="submit" class="primary">Lưu hợp đồng</button></div></form></dialog>
+  <dialog id="party-dialog"><form id="party-form"><div class="dialog-head"><div><p class="eyebrow">PARTY RECORD</p><h2>Thêm đối tác</h2></div><button type="button" class="icon-btn" data-close="party-dialog" aria-label="Đóng">×</button></div><div class="form-grid"><label class="full">Tên đối tác *<input id="party-name" required maxlength="180"></label><label>Phân loại<select id="party-type"><option value="customer">Khách hàng</option><option value="supplier">Nhà cung cấp</option><option value="partner">Đối tác</option><option value="other">Khác</option></select></label><label>Email<input id="party-email" type="email"></label><label>Điện thoại<input id="party-phone"></label><label>Mã số thuế<input id="party-tax"></label><label class="full">Địa chỉ<input id="party-address"></label></div><p id="party-error" class="error"></p><div class="dialog-actions"><button type="button" class="ghost" data-close="party-dialog">Hủy</button><button type="submit" class="primary">Lưu đối tác</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div><script src="/app.js?v=20261022-edit-fix" defer></script>
+</body>
+</html>

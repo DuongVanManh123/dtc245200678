@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "2": {
+      "Name": "Contract Management PostgreSQL",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "contract_db",
+      "Username": "contract_user",
+      "SSLMode": "prefer",
+      "ConnectNow": false
+    }
+  }
+}
